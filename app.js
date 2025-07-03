@@ -6,6 +6,8 @@ const corsOptions = require('./utils/corsOptions');
 
 const app = express();
 
+app.use(express.json());
+
 app.use(cors(corsOptions));
 
 app.use('/api/v1', apiRouter);
