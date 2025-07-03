@@ -1,8 +1,8 @@
 const express = require('express');
-const bcitRouter = require('./bcitRouter');
+const postsRouter = require('./postsRouter');
 
 const apiRouter = express.Router();
 
-apiRouter.use('/bcit-example', bcitRouter);
+apiRouter.use('/posts', postsRouter);
 
 module.exports = apiRouter;

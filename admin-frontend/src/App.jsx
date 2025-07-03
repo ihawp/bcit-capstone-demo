@@ -1,5 +1,9 @@
-export default function App() {
-  return <>
-    This is the app! admin
-  </>
+import { BrowserRouter } from 'react-router-dom';
+
+function App() {
+    return <BrowserRouter>
+        <Routes />
+    </BrowserRouter>
 }
+
+export default App;
