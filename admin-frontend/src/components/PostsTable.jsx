@@ -41,7 +41,7 @@ function PostsTable({ openForm }) {
         </thead>
         <tbody>
             { posts ? posts.map((item, key) => {
-                return <tr>
+                return <tr key={key}>
                     <td>{item.id}</td>
                     <td>
                         <button onClick={ () => openForm(item) }>Update</button>

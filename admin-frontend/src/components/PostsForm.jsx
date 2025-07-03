@@ -25,8 +25,6 @@ function PostsForm({ isUpdate, setIsUpdate, currentItem, setCurrentItem, default
 
         let url = `http://localhost:3000/api/v1/posts/`;
 
-        console.log(isUpdate);
-
         const addition = isUpdate ? encodeURIComponent(currentItem) : '';
 
         const response = await makeFetch(`${url}${addition}`, {

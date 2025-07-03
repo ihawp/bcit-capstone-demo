@@ -8,19 +8,19 @@ function PostsProvider({ children }) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
+    const doFetch = async () => {
+        const response = await makeFetch('http://localhost:3000/api/v1/posts', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'same-origin',
+        });
+        setLoading(false);
+        setPosts(response || []);
+    }
 
-        const doFetch = async () => {
-            const response = await makeFetch('http://localhost:3000/api/v1/posts', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'same-origin',
-            });
-            setLoading(false);
-            setPosts(response);
-        }
+    useEffect(() => {
 
         doFetch();
 
