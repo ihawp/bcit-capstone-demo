@@ -11,7 +11,7 @@
 - **Admin Frontend**: Content management interface
 - **RESTful API**: Full CRUD operations for blog posts
 - **Database Integration**: MySQL with connection pooling
-- **Security Features**: Input validation, CORS configuration, rate limiting
+- **Security Features**: Input validation, CORS configuration.
 
 **Note:** There is no user-authentication included in this demo.
 
@@ -33,6 +33,12 @@
                     │   Database      │──────────────────┘
                     └─────────────────┘
 ```
+
+---
+
+## Set It Up Locally
+
+[![Watch the video](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 ---
 
