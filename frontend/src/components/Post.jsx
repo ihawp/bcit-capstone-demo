@@ -2,7 +2,11 @@ import Markdown from 'marked-react';
 
 function Post({ item }) {
 
-    return <div className="marked">
+    const openSingle = () => {
+        
+    }
+
+    return <div className="marked" onClick={ openSingle }>
         <h2>{item.title}</h2>
         <p>{item.summary}</p>
         <Markdown>{item.content}</Markdown>
