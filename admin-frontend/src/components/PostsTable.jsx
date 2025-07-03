@@ -5,17 +5,24 @@ function PostsTable({ data, openForm }) {
     const { posts, loading } = data;
 
     const deletePost = async (id) => {
-        console.log(id);
-        if (confirm(`Are you sure you want to delete post #${id}?`)) {
-            await makeFetch('https://localhost:3000/api/v1/', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id }),
-                credentials: 'same-origin',
-            });
+
+        if (!confirm(`Are you sure you want to delete post #${id}?`)) {
+            return false;
         }
+
+        const response = await makeFetch(`http://localhost:3000/api/v1/posts/${encodeURIComponent(id)}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'same-origin',
+        });
+
+        if (!response) {
+            return false;
+        }
+
+        console.log(response);
     }
 
     return <table>

@@ -3,10 +3,16 @@ const { insertPost } = require('../utils/postQueries');
 
 const insertController = async (req, res) => {
 
-// Assume that users account has been verified as 'allowed to make changes to posts' (admin).
+    // Assume that users account has been verified as 'allowed to make changes to posts' (admin).
         // This would be a middleware that verifies a cookie related to the users session.
 
+    console.log(req.body);
+
     let { title, summary, content } = req.body;
+
+    console.log(title, summary, content);
+
+    console.log('wow');
 
     // Sanitize
 
@@ -24,8 +30,12 @@ const insertController = async (req, res) => {
         // could be reused between the two controllers.
 
     if (!title || !summary || !content) {
+        console.log(title, summary, content);
+        console.log('jere');
         return res.status(400).json({ success: false, error: 'Missing inputs.', code: 'USER_ERROR' });
     }
+
+    console.log('asdasdasdsa');
 
     const scO = { min: 1, max: 65535 };
 

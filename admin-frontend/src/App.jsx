@@ -3,7 +3,7 @@ import PostsProvider from './providers/PostsProvider';
 import Router from './Router';
 
 function App() {
-    return <BrowserRouter>
+    return <BrowserRouter basename='/admin'>
 
     <PostsProvider>
 

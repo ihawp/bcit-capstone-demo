@@ -1,12 +1,8 @@
-async function makeFetch() {
+async function makeFetch(url, options) {
     try {
-        const response = await fetch('http://localhost:3000/api/v1/posts', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'same-origin',
-        });
+        const response = await fetch(url, options);
+
+        console.log(response);
 
         if (!response.ok) throw new Error();
 

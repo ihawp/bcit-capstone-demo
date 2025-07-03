@@ -3,7 +3,7 @@ const { deletePost } = require('../utils/postQueries');
 
 const deleteController = async (req, res) => {
 
-    let { id } = req.body;
+    let { id } = req.params;
 
     id = validator.trim(id);
     id = validator.escape(id);
