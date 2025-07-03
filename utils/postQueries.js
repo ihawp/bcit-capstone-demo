@@ -38,7 +38,7 @@ const insertPost = (data) => {
         (title, summary, content, time_created)
         VALUES (?, ?, ?, CURRENT_TIMESTAMP(6))
         `,
-        []
+        [data.title, data.summary, data.content]
     );
     return response;
 }
