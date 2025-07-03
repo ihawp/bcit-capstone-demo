@@ -5,9 +5,11 @@ import { useContext } from 'react';
 import { PostsContext } from '../providers/PostsProvider';
 
 const defaultForm = {
+    id: undefined,
     title: '',
     summary: '',
-    content: ''
+    content: '',
+    time_created: '',
 }
 
 export default function Posts() {
@@ -17,39 +19,44 @@ export default function Posts() {
     const [isUpdate, setIsUpdate] = useState(false);
     const [formOpen, setFormOpen] = useState(true);
     const [currentItem, setCurrentItem] = useState(undefined);
+    const [defaultPostsForm, setDefaultPostsForm] = useState(defaultForm);
 
-    const [defaultPostsForm, setDefaultPostsForm] = useState({
-        title: '',
-        summary: '',
-        content: ''
-    });
+    const openForm = (item) => {
 
-    const openForm = (id = null) => {
-
-        const idVal = id === null;
-
-        setIsUpdate(true);
         setFormOpen(true);
 
-        setCurrentItem(idVal ? id : null);
+        setCurrentItem(item.id);
 
         // find the post in posts via the id
-        if (idVal) {
-            setDefaultPostsForm(posts.filter(item => item.id == id));
+        let the_post = posts.filter(post => post.id == item.id);
+
+        if (the_post.length > 0) {
+            setIsUpdate(true);
+            setDefaultPostsForm(the_post[0]);
             return;
         }
 
-        setDefaultPostsForm(defaultForm);
+        setIsUpdate(false);
+        setDefaultPostsForm(item);
 
+    }
+
+    const closeForm = () => {
+        setFormOpen(false);
     }
 
     return <div className='flex flex-row'>
 
         <section>
+            <button onClick={ () => openForm(defaultForm) }>+ New Post</button>
+            {formOpen ? <button onClick={ () => closeForm() }>Close Form</button> : null}
+        </section>
+
+        <section>
             <PostsTable openForm={ openForm } data={{ posts, loading, currentItem }} />
         </section>
 
-        {formOpen ? <PostsForm isUpdate={ isUpdate } currentItem={ currentItem } defaultForm={ defaultPostsForm } /> : null}
+        {formOpen ? <PostsForm isUpdate={ isUpdate } currentItem={ currentItem } defaultForm={ defaultPostsForm } setDefaultForm={ setDefaultPostsForm } /> : null}
 
     </div>;
 }

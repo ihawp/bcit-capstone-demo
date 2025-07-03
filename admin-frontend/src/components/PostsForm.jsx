@@ -2,19 +2,17 @@ import { useState } from 'react';
 import makeFetch from "../utils/makeFetch";
 
 
-function PostsForm({ isUpdate, currentItem, defaultForm }) {
-
-    const [formData, setFormData] = useState(defaultForm);
+function PostsForm({ isUpdate, currentItem, defaultForm, setDefaultForm }) {
 
     const handleChange = (event) => {
-        setFormData(prev => ({
+        setDefaultForm(prev => ({
             ...prev,
             [event.target.name]: event.target.value
         }));
     }
 
     const resetForm = () => {
-        setFormData(defaultForm);
+        setDefaultForm(defaultForm);
     }
 
     const submitForm = async (event) => {
@@ -23,16 +21,16 @@ function PostsForm({ isUpdate, currentItem, defaultForm }) {
 
         let url = `http://localhost:3000/api/v1/posts/`;
 
-        if (isUpdate) {
-            event.isUpdateBool = currentItem;
-        }
+        console.log(isUpdate);
 
-        const response = await makeFetch(`${url}${isUpdate ? encodeURIComponent(event.isUpdateBool) : ''}`, {
+        const addition = isUpdate ? encodeURIComponent(currentItem) : '';
+
+        const response = await makeFetch(`${url}${addition}`, {
             method: isUpdate ? 'PUT' : 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(defaultForm),
             credentials: 'same-origin',
         });
 
@@ -41,9 +39,9 @@ function PostsForm({ isUpdate, currentItem, defaultForm }) {
     }
 
     return <form onSubmit={ submitForm } className="bg-red-500 flex flex-col gap-2">
-        <input type="text" name="title" id="title" onChange={ handleChange } value={ formData.title } />
-        <textarea name="summary" onChange={ handleChange } value={ formData.summary } />
-        <textarea name="content" onChange={ handleChange } value={ formData.content } />
+        <input type="text" name="title" id="title" onChange={ handleChange } value={ defaultForm.title } />
+        <textarea name="summary" onChange={ handleChange } value={ defaultForm.summary } />
+        <textarea name="content" onChange={ handleChange } value={ defaultForm.content } />
         <input type="submit" />
         <button type="button" onClick={ resetForm }>Reset</button>
     </form>

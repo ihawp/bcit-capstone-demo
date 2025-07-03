@@ -6,7 +6,8 @@ const updateController = async (req, res) => {
     // Assume that users account has been verified as 'allowed to make changes to posts' (admin).
         // This would be a middleware that verifies a cookie related to the users session.
 
-    let { title, summary, content, id } = req.body;
+    let { id } = req.params;
+    let { title, summary, content } = req.body;
 
     // Sanitize
 

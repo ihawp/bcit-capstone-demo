@@ -11,7 +11,7 @@ function PostsProvider({ children }) {
     useEffect(() => {
 
         const doFetch = async () => {
-            const response = await makeFetch('http://localhost:3000/api/v1/posts', {
+            const response = await makeFetch('http://localhost:3000/api/v1/posts/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
