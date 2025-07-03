@@ -1,5 +1,4 @@
-# Express.js Portfolio Blog Application
-## A Full-Stack Web Application Built with Express.js
+# Express.js Post Managing Application (CMS)
 
 ---
 
