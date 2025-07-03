@@ -5,19 +5,14 @@ const selectController = async (req, res) => {
     try {
         const response = await selectAllPosts();
 
-        console.log(response);
-
-        if (response.length == 0) {
-            throw new Error();
-        }
-
         req.retrievedPosts = response;
 
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ success: false, error: 'Database error', code: 'DATABASE_ERROR' });
     }
 
-    return res.status()
+    return res.status(200).json({ success: true, data: [req.retrievedPosts], message: 'Succesfully retrieved posts.' });
 
 }
 
