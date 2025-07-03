@@ -44,7 +44,8 @@ const updateController = async (req, res) => {
         title,
         summary,
         content,
-        id
+        id,
+        time_created: new Date(),
     }
 
     try {
@@ -53,7 +54,7 @@ const updateController = async (req, res) => {
         return res.status(500).json({ success: false, error, code: 'DATABASE_ERROR' });
     }
 
-    return res.status(200).json({ success: true, data: {}, message: 'Post updated successfully!' });
+    return res.status(200).json({ success: true, data, message: 'Post updated successfully!' });
 
 }
 

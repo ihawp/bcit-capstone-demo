@@ -52,12 +52,16 @@ const insertController = async (req, res) => {
     }
 
     try {
-        await insertPost(data);
+        const response = await insertPost(data);
+
+        data.id = response.insertId;
+        data.time_created = new Date();
+
     } catch (error) {
         return res.status(500).json({ success: false, error, code: 'DATABASE_ERROR' });
     }
 
-    return res.status(200).json({ success: true, data: {}, message: 'Post inserted successfully!' });
+    return res.status(200).json({ success: true, data, message: 'Post inserted successfully!' });
 
 }
 

@@ -1,1 +1,52 @@
 @import "tailwindcss";
+
+/* For marked-react package */
+.marked {
+    padding: 2rem;
+    font-family: system-ui, sans-serif;
+    line-height: 1.6;
+}
+
+.marked h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.marked h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.marked p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.marked ul,
+.marked ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.marked li {
+    margin-bottom: 0.5rem;
+}
+
+.marked blockquote {
+    font-style: italic;
+    margin: 1rem 0;
+}
+
+.marked code {
+    font-family: monospace;
+    font-size: 0.95rem;
+}
+
+.marked pre {
+    font-family: monospace;
+    font-size: 0.95rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}

@@ -1,8 +1,10 @@
 import makeFetch from '../utils/makeFetch';
+import { useContext } from 'react';
+import { PostsContext } from '../providers/PostsProvider';
 
-function PostsTable({ data, openForm }) {
+function PostsTable({ openForm }) {
 
-    const { posts, loading } = data;
+    const { posts, setPosts, loading } = useContext(PostsContext);
 
     const deletePost = async (id) => {
 
@@ -22,7 +24,7 @@ function PostsTable({ data, openForm }) {
             return false;
         }
 
-        console.log(response);
+        setPosts(prev => prev.filter(item => item.id != id));
     }
 
     return <table>

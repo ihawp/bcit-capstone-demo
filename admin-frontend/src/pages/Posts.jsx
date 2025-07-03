@@ -20,6 +20,9 @@ export default function Posts() {
     const [formOpen, setFormOpen] = useState(true);
     const [currentItem, setCurrentItem] = useState(undefined);
     const [defaultPostsForm, setDefaultPostsForm] = useState(defaultForm);
+    const [formOrig, setFormOrig] = useState(defaultForm);
+
+    // Open any form, UPDATE or INSERT
 
     const openForm = (item) => {
 
@@ -53,10 +56,10 @@ export default function Posts() {
         </section>
 
         <section>
-            <PostsTable openForm={ openForm } data={{ posts, loading, currentItem }} />
+            <PostsTable openForm={ openForm } />
         </section>
 
-        {formOpen ? <PostsForm isUpdate={ isUpdate } currentItem={ currentItem } defaultForm={ defaultPostsForm } setDefaultForm={ setDefaultPostsForm } /> : null}
+        {formOpen ? <PostsForm isUpdate={ isUpdate } setCurrentItem={ setCurrentItem } setIsUpdate={ setIsUpdate } currentItem={ currentItem } defaultForm={ defaultPostsForm } formOrig={ formOrig } setFormOrig={ setFormOrig } setDefaultForm={ setDefaultPostsForm } /> : null}
 
     </div>;
 }
