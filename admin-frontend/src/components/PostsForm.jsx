@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import { PostsContext } from "../providers/PostsProvider";
 import Markdown from 'marked-react';
 
-function PostsForm({ isUpdate, setIsUpdate, currentItem, setCurrentItem, defaultForm, setDefaultForm, formOrig, setFormOrig, formOpen }) {
+function PostsForm({ isUpdate, setIsUpdate, currentItem, setCurrentItem, defaultForm, setDefaultForm, formOrig, setFormOrig, formOpen, closeForm }) {
 
     const { posts, setPosts } = useContext(PostsContext);
     const [preview, setPreview] = useState(false);
@@ -75,7 +75,7 @@ function PostsForm({ isUpdate, setIsUpdate, currentItem, setCurrentItem, default
         `}>
         <button onClick={ openPreview }>Preview</button>
         <header>
-            <h2>{defaultForm.title}</h2>
+            <h2>Post #{defaultForm.id}</h2>
         </header>
         <input type="text" name="title" id="title" onChange={ handleChange } value={ defaultForm.title } className={ inputClasses } />
         <textarea name="summary" onChange={ handleChange } value={ defaultForm.summary } className={ inputClasses + ' h-50' } />
@@ -101,7 +101,10 @@ function PostsForm({ isUpdate, setIsUpdate, currentItem, setCurrentItem, default
         </section> : null }
 
         <div className="flex flex-row justify-between items-center">
-            <button type="button" onClick={ resetForm }>Reset</button>
+            <div className="flex flex-row items-center">
+                {formOpen ? <button onClick={ () => closeForm() }>Close Form</button> : null}
+                <button type="button" onClick={ resetForm }>Reset</button>
+            </div>
             <div className="flex flex-row items-center">
                 <button onClick={ openPreview }>Preview</button>
                 <input type="submit" />

@@ -12,7 +12,6 @@ const selectController = async (req, res) => {
         req.retrievedPosts = response;
 
     } catch (error) {
-        console.log(error);
         return res.status(500).json({ success: false, error: 'Database error', code: 'DATABASE_ERROR' });
     }
 

@@ -54,14 +54,13 @@ export default function Posts() {
 
         <section>
             <button onClick={ () => openForm(defaultForm) }>+ New Post</button>
-            {formOpen ? <button onClick={ () => closeForm() }>Close Form</button> : null}
         </section>
 
         <section>
             <PostsTable openForm={ openForm } />
         </section>
 
-        {formOpen ? <PostsForm isUpdate={ isUpdate } setCurrentItem={ setCurrentItem } setIsUpdate={ setIsUpdate } currentItem={ currentItem } defaultForm={ defaultPostsForm } formOrig={ formOrig } setFormOrig={ setFormOrig } setDefaultForm={ setDefaultPostsForm } formOpen={ formOpen } /> : null}
+        {formOpen ? <PostsForm isUpdate={ isUpdate } setCurrentItem={ setCurrentItem } closeForm={ closeForm } setIsUpdate={ setIsUpdate } currentItem={ currentItem } defaultForm={ defaultPostsForm } formOrig={ formOrig } setFormOrig={ setFormOrig } setDefaultForm={ setDefaultPostsForm } formOpen={ formOpen } /> : null}
 
     </div>;
 }

@@ -27,32 +27,34 @@ function PostsTable({ openForm }) {
         setPosts(prev => prev.filter(item => item.id != id));
     }
 
-    return <table>
+    const thdc = 'border';
+
+    return <table className="border-collapse border">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Update</th>
-                <th>Delete</th>
-                <th>Title</th>
-                <th>Summary</th>
-                <th>Content</th>
-                <th>Time Created</th>
+                <th className={thdc}>ID</th>
+                <th className={thdc}>Update</th>
+                <th className={thdc}>Delete</th>
+                <th className={thdc}>Title</th>
+                <th className={thdc}>Summary</th>
+                <th className={thdc}>Content</th>
+                <th className={thdc}>Time Created</th>
             </tr>
         </thead>
         <tbody>
             { posts ? posts.map((item, key) => {
                 return <tr key={key}>
-                    <td>{item.id}</td>
-                    <td>
+                    <td className={thdc}>{item.id}</td>
+                    <td className={thdc}>
                         <button onClick={ () => openForm(item) }>Update</button>
                     </td>
-                    <td>
+                    <td className={thdc}>
                         <button onClick={ () => deletePost(item.id) }>Delete</button>
                     </td>
-                    <td>{item.title}</td>
-                    <td>{item.summary}</td>
-                    <td>{item.content}</td>
-                    <td>{item.time_created}</td>
+                    <td className={thdc}>{item.title}</td>
+                    <td className={thdc}>{item.summary}</td>
+                    <td className={thdc}>{item.content}</td>
+                    <td className={thdc}>{item.time_created}</td>
                 </tr>
             }) : loading ? 'loading' : 'error'}
         </tbody>
