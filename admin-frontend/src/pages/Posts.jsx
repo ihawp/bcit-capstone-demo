@@ -17,7 +17,7 @@ export default function Posts() {
     const { posts, loading } = useContext(PostsContext);
 
     const [isUpdate, setIsUpdate] = useState(false);
-    const [formOpen, setFormOpen] = useState(true);
+    const [formOpen, setFormOpen] = useState(false);
     const [currentItem, setCurrentItem] = useState(undefined);
     const [defaultPostsForm, setDefaultPostsForm] = useState(defaultForm);
     const [formOrig, setFormOrig] = useState(defaultForm);
@@ -27,6 +27,8 @@ export default function Posts() {
     const openForm = (item) => {
 
         setFormOpen(true);
+
+        setFormOrig(item);
 
         setCurrentItem(item.id);
 
@@ -59,7 +61,7 @@ export default function Posts() {
             <PostsTable openForm={ openForm } />
         </section>
 
-        {formOpen ? <PostsForm isUpdate={ isUpdate } setCurrentItem={ setCurrentItem } setIsUpdate={ setIsUpdate } currentItem={ currentItem } defaultForm={ defaultPostsForm } formOrig={ formOrig } setFormOrig={ setFormOrig } setDefaultForm={ setDefaultPostsForm } /> : null}
+        {formOpen ? <PostsForm isUpdate={ isUpdate } setCurrentItem={ setCurrentItem } setIsUpdate={ setIsUpdate } currentItem={ currentItem } defaultForm={ defaultPostsForm } formOrig={ formOrig } setFormOrig={ setFormOrig } setDefaultForm={ setDefaultPostsForm } formOpen={ formOpen } /> : null}
 
     </div>;
 }

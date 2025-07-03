@@ -5,7 +5,7 @@ const { pool, adminPool } = require('./pool');
 
 const selectAllPosts = async () => {
     const [response] = await pool.execute(
-        'SELECT * FROM `portfolio-posts` ORDER BY time_created DESC LIMIT 25',
+        'SELECT * FROM `portfolio-posts` ORDER BY id DESC LIMIT 25',
         []
     );
     return response;
