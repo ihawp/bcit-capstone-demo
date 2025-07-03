@@ -5,6 +5,8 @@ const selectController = async (req, res) => {
     try {
         const response = await selectAllPosts();
 
+        console.log(response);
+
         if (response.length == 0) {
             throw new Error();
         }

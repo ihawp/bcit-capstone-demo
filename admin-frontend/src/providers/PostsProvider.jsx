@@ -1,38 +1,24 @@
 import { createContext, useState, useEffect } from 'react';
+import makeFetch from '../utils/makeFetch';
 
-const PostsContext = createContext(null);
+export const PostsContext = createContext(null);
 
-function PostsProvider() {
+function PostsProvider({ children }) {
 
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
-        const fetchPosts = async () => {
-            try {
-                const response = await fetch('http://localhost:3000/api/v1/posts', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: 'same-origin',
-                });
-
-                if (!response.ok) return false;
-
-                const data = await response.json();
-
-                if (!data.success) return false;
-
-                return data.data;
-
-            } catch (error) {
-                return false;
-            }
-        }
-
         const doFetch = async () => {
-            const response = await fetchPosts();
+            const response = await makeFetch('http://localhost:3000/api/v1/posts', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'same-origin',
+            });
+            setLoading(false);
             setPosts(response);
         }
 
@@ -40,8 +26,8 @@ function PostsProvider() {
 
     }, []);
 
-    return <PostsContext.Provider value={ posts }>
-        {children}
+    return <PostsContext.Provider value={{ posts, loading }}>
+        { children }
     </PostsContext.Provider>
 
 }

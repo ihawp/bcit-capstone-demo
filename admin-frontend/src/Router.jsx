@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { Posts } from './pages/Posts';
+import Posts from './pages/Posts';
 
-function Routes() {
+function Router() {
 
     return <Routes>
         <Route path="/" element={ <Posts /> } />
@@ -10,4 +10,4 @@ function Routes() {
 
 }
 
-export default Routes;
+export default Router;

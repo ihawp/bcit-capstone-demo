@@ -1,8 +1,8 @@
 const poolOptions = {
     host: 'localhost',
     database: 'bcit-example',
-    password: 'root',
-    user: '',
+    password: '',
+    user: 'root',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
@@ -12,8 +12,8 @@ const poolOptions = {
 const poolOptionsAdmin = {
     host: 'localhost',
     database: 'bcit-example',
-    password: 'root',
-    user: '',
+    password: '',
+    user: 'root',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
