@@ -20,26 +20,97 @@
 ## Architecture Overview
 
 ```
-┌─────────────────┐    ┌─────────────────┐
-│   Public        │    │   Admin         │
-│   Frontend      │    │   Frontend      │
-│   (React)       │    │   (React)       │
-└─────────────────┘    └─────────────────┘
-         │                        │        
-         └────────────┌───────────┘
-             ┌────────└────────┐           
-             │   Express.js    │             ┌─────────────────┐
-             │   Backend       │─────────────│   MySQL         │
-             │                 │             │   Database      │
-             └─────────────────┘             └─────────────────┘
-                                     
+┌─────────────────┐      ┌─────────────────┐
+│   Public        │      │     Admin       │
+│   Frontend      │      │   Frontend      │
+│   (React)       │      │   (React)       │
+└─────────────────┘      └─────────────────┘
+         │                     │
+         └────────────┬────────┘
+                      │
+              ┌───────────────┐
+              │  Express.js   │
+              │   Backend     │
+              └──────┬────────┘
+                     │
+              ┌───────────────┐
+              │     MySQL     │
+              │   Database    │
+              └───────────────┘
+              
 ```
 
 ---
 
 ## Set It Up Locally
 
-[![Watch the video](https://img.youtube.com/vi/wHfDE7OnPTQ/0.jpg)](https://www.youtube.com/watch?v=wHfDE7OnPTQ)
+### Watch The Video
+
+[![](https://img.youtube.com/vi/wHfDE7OnPTQ/0.jpg)](https://www.youtube.com/watch?v=wHfDE7OnPTQ)
+
+### Clone
+
+```
+C://> git clone https://github.com/ihawp/bcit-capstone-demo.git
+```
+
+### Setup Server
+
+```
+C://> cd bcit-capstone-demo
+```
+
+```
+C://bcit-capstone-demo> npm install
+```
+
+#### Database Import
+Included in the cloned files is a database export titled ```bcit-example.sql```. Inside of phpMyAdmin create a new database titled ```bcit-example```. Once created, navigate to the import page, press ```Choose file``` and import the ```bcit-example.sql``` file. Scroll to the bottom of the page and press the confirmation button. You will now have a table called ```portfolio-posts``` inside of the ```bcit-example``` database.
+
+#### Database Login
+
+If you have a custom phpMyAdmin login you can alter the account options in ```/admin-frontend/utils/poolOptions.js```:
+
+```javascript
+const poolOptions = {
+    host: 'localhost', // You will not need to change this unless you plan to host a database seperately from where you host your Node.js application.
+    database: 'bcit-example', // If you decide to alter the name of the database change that information here.
+    password: '', // Enter a new password here.
+    user: 'root', // Enter a new username here.
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+    maxIdle: 10 // Learn about the beside/above options here: https://sidorares.github.io/node-mysql2/docs
+}
+```
+
+### Setup Admin-Frontend
+
+```
+C://bcit-capstone-demo> cd admin-frontend
+C://bcit-capstone-demo/admin-frontend> npm install
+C://bcit-capstone-demo/admin-frontend> npm run build
+C://bcit-capstone-demo/admin-frontend> cd ..
+```
+
+### Setup Frontend
+
+```
+C://bcit-capstone-demo> cd frontend
+C://bcit-capstone-demo/frontend> npm install
+C://bcit-capstone-demo/frontend> npm run build
+```
+
+### Host The Application
+
+If all went well you can now ```cd``` out of the ```frontend``` directory back to the ```bcit-capstone-demo``` parent directory and run ```npm start```. This will host the Express.js server on ```localhost:3000```.
+
+If you access the application at ```localhost:3000``` you will be presented with the built ```frontend```. If you access at ```localhost:3000/admin``` you will be presented with a dashboard to [CRUD](https://developer.mozilla.org/en-US/docs/Glossary/CRUD) the sites content.
+
+```
+C://bcit-capstone-demo/frontend> cd ..
+C://bcit-capstone-demo> npm start
+```
 
 ---
 
@@ -64,15 +135,19 @@ app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 ```
 
 ### 2. **Routing Architecture**
+
+- [PUT vs PATCH](https://www.geeksforgeeks.org/javascript/difference-between-put-and-patch-request/).
+- [Routes and Controllers](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/routes).
+
 ```javascript
 // apiRouter.js - API versioning
 const apiRouter = express.Router();
 apiRouter.use('/posts', postsRouter);
 
 // postsRouter.js - RESTful endpoints
-postsRouter.get('/', selectController);      // GET /api/v1/posts
-postsRouter.post('/', insertController);     // POST /api/v1/posts
-postsRouter.put('/:id', updateController);   // PUT /api/v1/posts/:id
+postsRouter.get('/', selectController); // GET /api/v1/posts
+postsRouter.post('/', insertController); // POST /api/v1/posts
+postsRouter.put('/:id', updateController); // PUT /api/v1/posts/:id
 postsRouter.delete('/:id', deleteController); // DELETE /api/v1/posts/:id
 ```
 
@@ -90,18 +165,29 @@ postsRouter.delete('/:id', deleteController); // DELETE /api/v1/posts/:id
 // selectController.js - Example controller
 const selectController = async (req, res) => {
     try {
+
+        // Select posts from database.
         const response = await selectAllPosts();
+
+        // Verify if posts have been found.
         if (response.length == 0) {
             throw new Error();
         }
+
+        // Save the retrieved posts to the request object.
         req.retrievedPosts = response;
+
     } catch (error) {
+
+        // Return an error if something goes wrong during the database operation.
         return res.status(500).json({ 
             success: false, 
             error: 'Database error', 
             code: 'DATABASE_ERROR' 
         });
     }
+
+    // Return the posts saved in req.retrievedPosts
     return res.status(200).json({ 
         success: true, 
         data: req.retrievedPosts, 
@@ -111,8 +197,13 @@ const selectController = async (req, res) => {
 ```
 
 ### 3. **Input Validation & Sanitization**
+
+- [express-validator](https://express-validator.github.io/docs/).
+- [validator](https://www.npmjs.com/package/validator).
+
 ```javascript
 // insertController.js - Data validation
+// This example uses the validator package, checkout the express-validator package for a more ideal approach.
 title = validator.trim(title);
 title = validator.escape(title);
 
@@ -130,6 +221,9 @@ if (!validator.isLength(title, { min: 1, max: 255 })) {
 ## Database Integration
 
 ### 1. **Connection Pooling**
+
+[Learn about mysql2 connection pools](https://sidorares.github.io/node-mysql2/docs#using-connection-pools).
+
 ```javascript
 // pool.js - MySQL connection management
 const mysql = require('mysql2/promise');
@@ -140,16 +234,19 @@ const adminPool = mysql.createPool(poolOptionsAdmin);
 ### 2. **Prepared Statements**
 ```javascript
 // postQueries.js - SQL queries with parameterization
-const selectAllPosts = async () => {
-    const [response] = await pool.execute(
-        'SELECT * FROM `portfolio-posts` ORDER BY id DESC LIMIT 25',
-        []
+const updatePost = async (data) => {
+    const [response] = await adminPool.execute(
+        'UPDATE `portfolio-posts` SET title = ?, summary = ?, content = ?, time_created = CURRENT_TIMESTAMP(6) WHERE id = ?',
+        [data.title, data.summary, data.content, data.id]
     );
     return response;
 }
 ```
 
 ### 3. **Database Schema**
+
+There is only one table included in this schema.
+
 ```sql
 CREATE TABLE `portfolio-posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -227,24 +324,6 @@ const response = await fetch('/api/v1/posts', {
 
 ---
 
-## Deployment & Production Features
-
-### 1. **Environment Configuration**
-- **dotenv**: Environment variable management.
-- **Port Configuration**: Configurable server port.
-
-### 2. **Performance Optimizations**
-- **Connection Pooling**: Efficient database connections.
-- **Static File Serving**: Optimized frontend delivery.
-- **Compression**: Response compression (compression middleware).
-
-### 3. **Monitoring & Logging**
-- **Winston**: Structured logging.
-- **Error Tracking**: Comprehensive error handling.
-- **Request Logging**: API request monitoring.
-
----
-
 ## API Endpoints
 
 | Method | Endpoint | Description | Response |
@@ -256,7 +335,7 @@ const response = await fetch('/api/v1/posts', {
 
 ---
 
-## Key Express.js Patterns Demonstrated
+## Patterns
 
 ### 1. **MVC Architecture**
 - **Models**: Database queries in `utils/postQueries.js`.
@@ -296,8 +375,9 @@ const response = await fetch('/api/v1/posts', {
 ### **Scalability**
 - Database indexing optimization.
 - Caching strategies.
+- Environment Variables (dotenv).
 
-The packages needed for these things are already included in package.json!
+The packages needed for these things are already included in package.json.
 
 Checkout this repository for an example of an implementation with authenticated admin accounts https://github.com/ihawp/cms-portfolio.
 
