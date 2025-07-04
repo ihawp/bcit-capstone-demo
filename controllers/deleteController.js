@@ -1,5 +1,5 @@
 const validator = require('validator');
-const { deletePost } = require('../utils/postQueries');
+const { deletePost } = require('../models/postQueries');
 
 const deleteController = async (req, res) => {
 

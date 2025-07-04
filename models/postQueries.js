@@ -1,4 +1,4 @@
-const { pool, adminPool } = require('./pool');
+const { pool, adminPool } = require('../utils/pool');
 
 // **********************************************************************
 // SELECT

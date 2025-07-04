@@ -1,5 +1,5 @@
 const validator = require('validator');
-const { insertPost } = require('../utils/postQueries');
+const { insertPost } = require('../models/postQueries');
 
 const insertController = async (req, res) => {
 

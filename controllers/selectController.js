@@ -1,4 +1,4 @@
-const { selectAllPosts } = require('../utils/postQueries');
+const { selectAllPosts } = require('../models/postQueries');
 
 const selectController = async (req, res) => {
 
