@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+a.active {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 /* For marked-react package */
 .marked {
     font-family: system-ui, sans-serif;

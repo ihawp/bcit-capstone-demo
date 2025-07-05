@@ -1,7 +1,8 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useContext, useState, useEffect } from 'react';
 import { PostsContext } from "../providers/PostsProvider";
 import Marked from 'marked-react';
+import changeTitle from "../utils/changeTitle";
 
 function Post() {
 
@@ -26,12 +27,18 @@ function Post() {
     }
 
     if (!loading && !posts) {
+        changeTitle('Error');
         return <>Error!</>
     }
 
     if (thePost) {
+
+        changeTitle(`${thePost.title}`);
+
         return <main className="marked">
             
+            <Link to='/posts'>Back To Posts</Link>
+
             <header>
                 <h1>{thePost.title}</h1>
                 <p>{thePost.summary}</p>
