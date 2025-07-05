@@ -10,6 +10,23 @@ app.use(express.json());
 
 app.use(cors(corsOptions));
 
+// *******************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// *******************************************************
+
 app.use('/api/v1', apiRouter);
 
 app.use('/admin', express.static(path.join(__dirname, 'admin-frontend', 'dist')));

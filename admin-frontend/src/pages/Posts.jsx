@@ -50,7 +50,11 @@ export default function Posts() {
         setFormOpen(false);
     }
 
-    return <div className='flex flex-row'>
+    return <div className='flex flex-col'>
+
+        <header>
+            <h1>Posts Table</h1>
+        </header>
 
         <section>
             <button onClick={ () => openForm(defaultForm) }>+ New Post</button>

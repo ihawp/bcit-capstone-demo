@@ -27,14 +27,15 @@ function PostsTable({ openForm }) {
         setPosts(prev => prev.filter(item => item.id != id));
     }
 
-    const thdc = 'border';
+    const thdc = 'border p-1';
 
-    return <table className="border-collapse border">
+    return <table className="border-collapse border w-[100vw]">
         <thead>
             <tr>
                 <th className={thdc}>ID</th>
                 <th className={thdc}>Update</th>
                 <th className={thdc}>Delete</th>
+                <th className={thdc}>View</th>
                 <th className={thdc}>Title</th>
                 <th className={thdc}>Summary</th>
                 <th className={thdc}>Content</th>
@@ -46,10 +47,13 @@ function PostsTable({ openForm }) {
                 return <tr key={key}>
                     <td className={thdc}>{item.id}</td>
                     <td className={thdc}>
-                        <button onClick={ () => openForm(item) }>Update</button>
+                        <button onClick={ () => openForm(item) } className="cursor-pointer hover:bg-green-500 hover:text-white rounded">Update</button>
                     </td>
                     <td className={thdc}>
-                        <button onClick={ () => deletePost(item.id) }>Delete</button>
+                        <button onClick={ () => deletePost(item.id) } className="cursor-pointer hover:bg-red-500 hover:text-white rounded">Delete</button>
+                    </td>
+                    <td className={thdc}>
+                        <a href={`http://localhost:3000/post/${encodeURIComponent(item.id)}`}>View</a>
                     </td>
                     <td className={thdc}>{item.title}</td>
                     <td className={thdc}>{item.summary}</td>

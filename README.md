@@ -136,8 +136,9 @@ app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
 ### 2. **Routing Architecture**
 
-- [PUT vs PATCH](https://www.geeksforgeeks.org/javascript/difference-between-put-and-patch-request/).
 - [Routes and Controllers](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/routes).
+- [PUT vs PATCH](https://www.geeksforgeeks.org/javascript/difference-between-put-and-patch-request/).
+- [PATCH RFC](https://datatracker.ietf.org/doc/html/rfc6902).
 
 ```javascript
 // apiRouter.js - API versioning
@@ -377,7 +378,7 @@ const response = await fetch('/api/v1/posts', {
 - Caching strategies.
 - Environment Variables (dotenv).
 
-The packages needed for these things are already included in package.json.
+The packages needed for these things are already included in ```package.json``` (checkout ```package.json```).
 
 Checkout this repository for an example of an implementation with authenticated admin accounts https://github.com/ihawp/cms-portfolio.
 

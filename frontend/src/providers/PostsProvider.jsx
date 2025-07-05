@@ -19,8 +19,11 @@ function PostsProvider({ children }) {
             });
 
             if (!response.ok) {
+                setLoading(false);
                 return false;
             }
+
+            setLoading(false);
 
             const data = await response.json();
 
@@ -29,6 +32,7 @@ function PostsProvider({ children }) {
         } catch (error) {
             return false;
         }
+
     }
 
     const doFetch = async () => {

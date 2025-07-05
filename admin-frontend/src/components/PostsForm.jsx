@@ -2,6 +2,11 @@ import makeFetch from "../utils/makeFetch";
 import { useContext, useState } from 'react';
 import { PostsContext } from "../providers/PostsProvider";
 import Markdown from 'marked-react';
+import { GoXCircle } from "react-icons/go";
+import { BiRotateLeft } from "react-icons/bi";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa6";
+import { IoMdSend } from "react-icons/io";
 
 function PostsForm({ isUpdate, setIsUpdate, currentItem, setCurrentItem, defaultForm, setDefaultForm, formOrig, setFormOrig, formOpen, closeForm }) {
 
@@ -60,6 +65,7 @@ function PostsForm({ isUpdate, setIsUpdate, currentItem, setCurrentItem, default
         setIsUpdate(true);
         setCurrentItem(data.id);
         setFormOrig(data);
+        setDefaultForm(data);
 
     }
 
@@ -69,27 +75,29 @@ function PostsForm({ isUpdate, setIsUpdate, currentItem, setCurrentItem, default
 
     const inputClasses = "border border-white p-2 rounded";
 
-    return <form onSubmit={ submitForm } className={`flex flex-col
+    return <form onSubmit={ submitForm } className={`flex flex-col text-white
             ${formOpen ? 'w-[60%] sm:w-[50%] opacity visible ' : 'w-0 opacity-0 invisible' }
             transition-all bg-[#333] h-screen fixed top-0 right-0 z-100 overflow-auto p-8
         `}>
-        <button onClick={ openPreview }>Preview</button>
-        <header>
-            <h2>Post #{defaultForm.id}</h2>
+        <header className="mb-4">
+            <h2>{defaultForm.id ? `Post #${defaultForm.id}` : 'New Post'}</h2>
         </header>
-        <input type="text" name="title" id="title" onChange={ handleChange } value={ defaultForm.title } className={ inputClasses } />
-        <textarea name="summary" onChange={ handleChange } value={ defaultForm.summary } className={ inputClasses + ' h-50' } />
-        <textarea name="content" onChange={ handleChange } value={ defaultForm.content } className={ inputClasses + ' min-h-50 h-max'} />
+
+        <div className="flex flex-col gap-4">
+            <input type="text" placeholder="Title" name="title" id="title" onChange={ handleChange } value={ defaultForm.title } className={ inputClasses } />
+            <textarea name="summary" placeholder="Summary" onChange={ handleChange } value={ defaultForm.summary } className={ inputClasses + ' h-50' } />
+            <textarea name="content" placeholder="Content (Markdown)" onChange={ handleChange } value={ defaultForm.content } className={ inputClasses + ' min-h-50 h-max'} />
+        </div>
 
         { preview ? <section className="marked fixed top-0 left-0 bg-[#222] h-[100vh] w-[100vw]">
-            <div className="flex flex-col">
+            <div className="flex flex-col items-center">
 
-                <div className="flex flex-row items-center gap-2">
+                <div className="flex flex-row items-center gap-2 justify-between w-full">
                     <h2>Preview</h2>
-                    <button onClick={ openPreview }>Close Preview</button>
+                    <button onClick={ openPreview } title="Close Preview" className="cursor-pointer"><FaEyeSlash size={32}/></button>
                 </div>
 
-                <div>
+                <div className="justify w-full md:w-200">
                     <h1>{defaultForm.title}</h1>
                     <p>{defaultForm.summary}</p>
                     <Markdown>
@@ -102,12 +110,12 @@ function PostsForm({ isUpdate, setIsUpdate, currentItem, setCurrentItem, default
 
         <div className="flex flex-row justify-between items-center">
             <div className="flex flex-row items-center">
-                {formOpen ? <button onClick={ () => closeForm() }>Close Form</button> : null}
-                <button type="button" onClick={ resetForm }>Reset</button>
+                {formOpen ? <button onClick={ () => closeForm() } title="Close Form" className="cursor-pointer"><GoXCircle size={32} /></button> : null}
+                <button type="button" onClick={ resetForm } title="Reset Form" className="cursor-pointer"><BiRotateLeft size={32} /></button>
             </div>
             <div className="flex flex-row items-center">
-                <button onClick={ openPreview }>Preview</button>
-                <input type="submit" />
+                <button onClick={ openPreview } title="Preview Post" className="cursor-pointer"><FaEye size={32} /></button>
+                <button type="submit" title="Submit Post" className="cursor-pointer"><IoMdSend size={32} /></button>
             </div>
         </div>
     </form>
