@@ -116,7 +116,7 @@ C://bcit-capstone-demo> npm start
 
 ## Express.js Implementation
 
-### 1. **Application Structure**
+### **Application Structure**
 ```javascript
 // app.js - Main Express application
 const express = require('express');
@@ -134,7 +134,7 @@ app.use('/admin', express.static(path.join(__dirname, 'admin-frontend', 'dist'))
 app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 ```
 
-### 2. **Routing Architecture**
+### **Routing Architecture**
 
 - [Routes and Controllers](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/routes).
 - [PUT vs PATCH](https://www.geeksforgeeks.org/javascript/difference-between-put-and-patch-request/).
@@ -156,12 +156,12 @@ postsRouter.delete('/:id', deleteController); // DELETE /api/v1/posts/:id
 
 ## Key Express.js Features Implemented
 
-### 1. **Middleware Stack**
+### **Middleware Stack**
 - **express.json()**: Parse JSON request bodies.
 - **CORS**: Cross-origin resource sharing with custom options.
 - **Static File Serving**: Serve React frontend builds.
 
-### 2. **Controller Pattern**
+### **Controller Pattern**
 ```javascript
 // selectController.js - Example controller
 const selectController = async (req, res) => {
@@ -197,7 +197,7 @@ const selectController = async (req, res) => {
 }
 ```
 
-### 3. **Input Validation & Sanitization**
+### **Input Validation & Sanitization**
 
 - [express-validator](https://express-validator.github.io/docs/).
 - [validator](https://www.npmjs.com/package/validator).
@@ -221,7 +221,7 @@ if (!validator.isLength(title, { min: 1, max: 255 })) {
 
 ## Database Integration
 
-### 1. **Connection Pooling**
+### **Connection Pooling**
 
 [Learn about mysql2 connection pools](https://sidorares.github.io/node-mysql2/docs#using-connection-pools).
 
@@ -232,7 +232,7 @@ const pool = mysql.createPool(poolOptions);
 const adminPool = mysql.createPool(poolOptionsAdmin);
 ```
 
-### 2. **Prepared Statements**
+### **Prepared Statements**
 ```javascript
 // postQueries.js - SQL queries with parameterization
 const updatePost = async (data) => {
@@ -244,7 +244,7 @@ const updatePost = async (data) => {
 }
 ```
 
-### 3. **Database Schema**
+### **Database Schema**
 
 There is only one table included in this schema.
 
@@ -263,7 +263,7 @@ CREATE TABLE `portfolio-posts` (
 
 ## Security Features
 
-### 1. **CORS Configuration**
+### **CORS Configuration**
 ```javascript
 const corsOptions = {
     origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'],
@@ -274,12 +274,12 @@ const corsOptions = {
 }
 ```
 
-### 2. **Input Sanitization**
+### **Input Sanitization**
 - **XSS Prevention**: HTML escaping with validator.escape().
 - **SQL Injection Prevention**: Prepared statements.
 - **Input Validation**: Length and format checking.
 
-### 3. **Error Handling**
+### **Error Handling**
 - **Consistent Error Responses**: Standardized JSON error format.
 - **Error Codes**: Specific error codes for different failure types.
 - **Graceful Degradation**: Proper HTTP status codes.
@@ -303,17 +303,17 @@ const corsOptions = {
 
 ## Frontend Integration
 
-### 1. **Public Frontend** (`/`)
+### **Public Frontend** (`/`)
 - Displays blog posts to visitors.
 - React-based with responsive design.
 - Fetches data from Express.js API.
 
-### 2. **Admin Frontend** (`/admin`)
+### **Admin Frontend** (`/admin`)
 - Content management interface.
 - CRUD operations for blog posts.
 - Form validation and real-time updates.
 
-### 3. **API Communication**
+### **API Communication**
 ```javascript
 // Frontend API calls
 const response = await fetch('/api/v1/posts', {
@@ -338,17 +338,17 @@ const response = await fetch('/api/v1/posts', {
 
 ## Patterns
 
-### 1. **MVC Architecture**
+### **MVC Architecture**
 - **Models**: Database queries in `utils/postQueries.js`.
 - **Views**: React frontend components.
 - **Controllers**: Request handlers in `controllers/`.
 
-### 2. **Middleware Pattern**
+### **Middleware Pattern**
 - **Application-level**: CORS, JSON parsing, static files.
 - **Route-level**: API versioning and organization.
 - **Error handling**: Centralized error responses.
 
-### 3. **RESTful Design**
+### **RESTful Design**
 - **Resource-based URLs**: `/api/v1/posts`
 - **HTTP Methods**: GET, POST, PUT, DELETE.
 - **Consistent Response Format**: JSON with success/error indicators.

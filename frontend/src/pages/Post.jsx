@@ -26,11 +26,6 @@ function Post() {
         return <>Loading!</>
     }
 
-    if (!loading && !posts) {
-        changeTitle('Error');
-        return <>Error!</>
-    }
-
     if (thePost) {
 
         changeTitle(`${thePost.title}`);
@@ -47,6 +42,11 @@ function Post() {
                 <Marked>{thePost.content}</Marked>
             </section>
         </main>
+    }
+
+    if (!loading && !thePost) {
+        changeTitle('Error');
+        return <>Error!</>
     }
 
 }
