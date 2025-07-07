@@ -12,109 +12,44 @@ app.use(cors(corsOptions));
 
 // *******************************************************
 
+// Example From Presentation:
 
+const middleware = (req, res, next) => {
 
+    const { id } = req.params;
 
+    if (id > 10) {
+        return res.json({ success: false });
+    }
 
+    req.user = { id };
 
+    next();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+} 
 
 const middleware2 = (req, res, next) => {
 
-
-    if (!req.tokenhasAtoken) {
-        return res.status(400).json({ 
-            success: false,
-            error: 'No token.',
-            code: 'AUTHENTICATION_ERROR'
-        });
+    if (!req.user) {
+        return res.json({ success: false });
     }
 
     next();
 
 }
 
-const middleware1 = (req, res, next) => {
-    req.tokenhasAtoken = { id: 10, username: 'Warren' };
-    next();
-}
-
 const controller = (req, res) => {
 
-    res.json({ success: true });
+    // gets some data from the database
+
+    // const response
+    const response = { data: req.user.id };
+
+    res.json({ success: true, response });
 
 }
 
-app.get('/bcit', middleware1, middleware2, controller);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.get('/bcit/:id', middleware, middleware2, controller);
 
 // *******************************************************
 

@@ -305,7 +305,7 @@ const corsOptions = {
 
 ### **Public Frontend** (`/`)
 - Displays blog posts to visitors.
-- React-based with responsive design.
+- Built with React.
 - Fetches data from Express.js API.
 
 ### **Admin Frontend** (`/admin`)
