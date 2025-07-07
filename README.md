@@ -4,7 +4,7 @@
 
 ## Project Overview
 
-**What is it?** A simple CRUD application with Express.js, MySQL, and React.
+**What is it?** A simple CRUD application built with Express.js, MySQL, and React.
 
 **Key Features:**
 - **Public Frontend**: User-facing blog/portfolio display.
