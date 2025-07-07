@@ -12,39 +12,108 @@ app.use(cors(corsOptions));
 
 // *******************************************************
 
-const middleware = (req, res, next) => {
 
-    const id = 11;
 
-    req.user = { id };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const middleware2 = (req, res, next) => {
+
+
+    if (!req.tokenhasAtoken) {
+        return res.status(400).json({ 
+            success: false,
+            error: 'No token.',
+            code: 'AUTHENTICATION_ERROR'
+        });
+    }
 
     next();
 
 }
 
-const middleware2 = (req, res, next) => {
-
-
-    if (req.user.id > 10) {
-        return next();
-    }
-
-    res.status(500).json({ success: false, error: 'User ID undefined', code: 'AUTHENTICATION' });
-
+const middleware1 = (req, res, next) => {
+    req.tokenhasAtoken = { id: 10, username: 'Warren' };
+    next();
 }
 
 const controller = (req, res) => {
 
-    res.status(200).json({ success: true, message: 'We did it!' });
+    res.json({ success: true });
 
 }
 
-app.get('/bcit', middleware, middleware2, controller);
+app.get('/bcit', middleware1, middleware2, controller);
 
 
 
 
-// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // *******************************************************
