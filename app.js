@@ -12,17 +12,39 @@ app.use(cors(corsOptions));
 
 // *******************************************************
 
+const middleware = (req, res, next) => {
+
+    const id = 11;
+
+    req.user = { id };
+
+    next();
+
+}
+
+const middleware2 = (req, res, next) => {
+
+
+    if (req.user.id > 10) {
+        return next();
+    }
+
+    res.status(500).json({ success: false, error: 'User ID undefined', code: 'AUTHENTICATION' });
+
+}
+
+const controller = (req, res) => {
+
+    res.status(200).json({ success: true, message: 'We did it!' });
+
+}
+
+app.get('/bcit', middleware, middleware2, controller);
 
 
 
 
-
-
-
-
-
-
-
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
 
 
 // *******************************************************

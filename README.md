@@ -358,9 +358,10 @@ const response = await fetch('/api/v1/posts', {
 ## What to do from here:
 
 ### **Learn The Basics (Resources)**
-- Documentation for the most recent version of Express.js (5.x): https://expressjs.com/en/5x/api.html
+- Documentation for the most recent version of [Express.js (5.x)](https://expressjs.com/en/5x/api.html).
 - On the same site as above use the header menu to find all necessary Express.js related resources. **Getting Started** and **Guide** will be the most useful.
-- If you want to build an app with user accounts (and access/refresh tokens that can be revoked) read RFC 6749 https://datatracker.ietf.org/doc/html/rfc6749.
+- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status).
+- If you want to build an app with user accounts (and access/refresh tokens that can be revoked) read [RFC 6749](https://datatracker.ietf.org/doc/html/rfc6749).
 
 ### **Authentication & Authorization**
 - JWT-based authentication.
@@ -380,9 +381,7 @@ const response = await fetch('/api/v1/posts', {
 
 The packages needed for these things are already included in ```package.json``` (checkout ```package.json```).
 
-Checkout this repository for an example of an implementation with authenticated admin accounts https://github.com/ihawp/cms-portfolio.
-
-A next step for the repository mentioned above would be adding roles and utilizing the authentication system on the public facing ***/frontend*** React app.
+Checkout [this repository](https://github.com/ihawp/cms-portfolio) for an example of an implementation with authenticated admin accounts.
 
 ---
 
